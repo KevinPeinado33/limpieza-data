@@ -1,4 +1,5 @@
-const axios = require('axios')
+const axios  = require('axios')
+const detect = require('detect-gender')
 
 const generos = {
     female: 'Femenino',
@@ -9,7 +10,7 @@ const calcularGenero = async nombre => {
 
     try {
 
-        const response = await axios.get(`https://gender-api.com/get?name=${ nombre }&country=PE&key=c3fnYolW3lKtsdAsMHj5dlnRg8jjcVXLtNl9`)
+        const response = await axios.get(`https://genderapi.io/api?name=${ nombre }`)
         const sexo     = response.data.gender
     
         return generos[ sexo ]
@@ -17,9 +18,17 @@ const calcularGenero = async nombre => {
     } catch( error ) {
 
         console.log({ error })
+        
     }
- 
-   
+
 }
 
-module.exports = { calcularGenero }
+const obtenerGenero = async nombre => {
+
+    const sexo = await detect( nombre )
+
+    console.log({ sexo })
+
+}
+
+module.exports = { calcularGenero, obtenerGenero }

@@ -18,22 +18,15 @@ const leerExcel = url => {
         return exits
     })
 
-    results.forEach( item => console.log( item.NOMBRE_ESCUELA ) )
+    results.forEach( async item => {
+        
+        const nombre = primerNombre( item.ESTUDIANTE )
+        const result = await calcularGenero( nombre )
 
-    // meter logica para leer todos los nombres
+        console.log(result)
+
+    })
 
 }
 
-
-
-const prueba = ['Kevin Raul Peinado Leiva', 'Francelys Lazaro', 'Maria Juana Del carpio', 'Mario Llori', 'Jose Marcos']
-
-prueba.forEach( async nombres => {
-
-    const nombre = primerNombre( nombres )
-
-    const result = await calcularGenero( nombre )
-
-    console.log({ nombres, result })
-
-})
+leerExcel('./data.xlsx')

@@ -1,7 +1,7 @@
-const xlsx               = require('xlsx')
+const xlsx                   = require('xlsx')
 
-const { primerNombre, crearArchivo }    = require('./helpers')
-const { calcularGenero, obtenerGenero } = require('./service')
+const { primerNombre, esperar }       = require('./helpers')
+const { postCalcularGenero } = require('./service')
 
 const leerExcel = async url => {
     
@@ -18,15 +18,22 @@ const leerExcel = async url => {
         return exits
     })
 
-    results = results.slice(0, 999)
+    results = results.slice(1000, 3000)
 
-    results.forEach( async item => {
-            
+    
+    results.map( async item => {
+        
+        
         const nombre = primerNombre( item.ESTUDIANTE )
-        const result = await calcularGenero( nombre )
+        
+        await esperar( 5 )
 
+        const result = await postCalcularGenero( nombre )
+        
         console.log( result )
-
+        
     })
-
+       
 }
+
+leerExcel('./data.xlsx')

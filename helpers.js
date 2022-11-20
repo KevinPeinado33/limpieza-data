@@ -15,4 +15,10 @@ const crearArchivo = ( contenido ) => {
 
 }
 
-module.exports = { primerNombre, crearArchivo }
+const esperar = ( n ) => {
+    return new Promise( resolve => {
+        setTimeout(resolve, n*1000)
+    })
+}
+
+module.exports = { primerNombre, crearArchivo, esperar }
